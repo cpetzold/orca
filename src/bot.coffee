@@ -18,5 +18,5 @@ module.exports = class Bot
     @client.addListener 'message', @onMessage
 
   onMessage: (from, to, message) =>
-    console.log from, to, message
-    @store.push @path, { from, message }, null
+    timestamp = Date.now()
+    @store.push @path, { from, message, timestamp }, null
