@@ -1,0 +1,47 @@
+body
+  background: #2c2b2c
+  color: #fff
+  font: 11px/14px "Andale Mono", "Lucida Console", Consolas, monospace
+  margin: 5px
+  padding: 0
+
+ul
+  list-style: none
+  margin: 0
+  padding: 0
+
+#toggleActions
+  position: fixed
+  top: 5px
+  right: 5px
+
+.hide
+  .join,
+  .part
+    display: none
+
+.timestamp
+  color: #555
+
+.join,
+.part
+  .from
+    color: #999
+
+.join
+  .from
+    &:after
+      content: ' joined'
+
+.part
+  .from
+    &:after
+      content: ' quit'
+
+.message
+  .from
+    color: #bec4a4
+    &:before
+      content: '('
+    &:after
+      content: ')'

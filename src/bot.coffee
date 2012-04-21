@@ -12,11 +12,31 @@ module.exports = class Bot
     opts.port ?= 6667
     opts.nick ?= 'derbybot'
 
-    @path = opts.path ? 'messages'
-    @client = new Client opts.server, opts.nick, opts
+    @path = opts.path ? 'channels.'
+    @path += '.' if not @path.match '.'
 
-    @client.addListener 'message', @onMessage
+    @client = new Client opts.server, opts.nick, opts
+    @client.on 'message', @onMessage
+    @client.on 'join', @onJoin
+    @client.on 'part', @onPart
 
   onMessage: (from, to, message) =>
-    timestamp = Date.now()
-    @store.push @path, { from, message, timestamp }, null
+    @push to,
+      type: 'message'
+      from: from
+      message: message
+
+  onJoin: (to, from) =>
+    @push to,
+      type: 'join'
+      from: from
+
+  onPart: (to, from) =>
+    @push to,
+      type: 'part'
+      from: from
+
+  push: (to, message) ->
+    path = @path + to.replace '#', ''
+    message.timestamp = Date.now()
+    @store.push path + '.messages', message, null
