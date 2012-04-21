@@ -1,0 +1,15 @@
+{
+  "author": "Conner Petzold <cpetzold@gmail.com> (http://the0thcom)",
+  "name": "derby-irc",
+  "description": "derby irc plugin",
+  "version": "0.0.0",
+  "repository": { "url": "" },
+  "engines": { "node": "*" },
+  "main": "lib",
+  "dependencies": {
+    "irc": "0.3.4"
+  },
+  "devDependencies": {
+    "derby": "*"
+  }
+}
