@@ -1,16 +1,5 @@
-{ Client } = require('irc');
 
-module.exports = (store, options) ->
-  console.log store.constructor.name
+exports.Bot = require './bot'
 
-  return
-
-  # if not store or 
-  #   throw new Error 'Must pass in a store'
-
-  # options ?= {}
-  # options.server = options.server || 'irc.freenode.net';
-  # options.nick = 'derbybot';
-  # options.channels = ['#derby'];
-
-  # client = new Client options.server
+exports.createBot = (store, opts) ->
+  new exports.Bot store, opts
