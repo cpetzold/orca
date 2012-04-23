@@ -1,5 +1,10 @@
+path = require 'path'
 
-exports.Bot = require './bot'
+orca = module.exports = require './app'
 
-exports.createBot = (store, opts) ->
-  new exports.Bot store, opts
+orca.root = path.dirname __dirname
+orca.assets = path.join orca.root, 'public'
+
+orca.Bot = require './bot'
+orca.createBot = (opts) ->
+  new orca.Bot opts

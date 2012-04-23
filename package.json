@@ -1,18 +1,18 @@
 {
   "author": "Conner Petzold <cpetzold@gmail.com> (http://the0thcom)",
-  "name": "neigh",
-  "description": "derby irc plugin",
+  "name": "orca",
+  "description": "derby irc",
   "version": "0.0.0",
   "repository": { "url": "" },
   "engines": { "node": "*" },
   "main": "lib",
   "dependencies": {
-    "irc": "0.3.4"
+    "derby": "*",
+    "express": "3.x",
+    "racer-db-mongo": "*",
+    "irc": "0.3.4",
+    "moment": "*"
   },
   "devDependencies": {
-    "derby": "*",
-    "racer-db-mongo": "*",
-    "express": "*",
-    "moment": "*"
   }
 }
