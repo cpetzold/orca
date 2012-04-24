@@ -15,7 +15,7 @@ orca.view.make 'Body', """
 orca.view.make 'message', """
   <li class='{{type}}'>
     <span class='timestamp'>({{prettyDate(timestamp)}})</span>
-    {{#if from}}<span class='from'>{{from}}</span> {{/}}
+    {{#if from}}<span class='from'>{{from}}</span>{{/}}
     {{message}}
 """
 
