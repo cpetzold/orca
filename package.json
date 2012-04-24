@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "repository": { "url": "" },
   "engines": { "node": "*" },
-  "main": "lib",
+  "main": "lib/server",
   "dependencies": {
     "derby": "*",
     "express": "3.x",
