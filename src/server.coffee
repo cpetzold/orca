@@ -1,4 +1,5 @@
 path = require 'path'
+http = require 'http'
 derby = require 'derby'
 express = require 'express'
 orca = module.exports = require './orca'
@@ -10,10 +11,12 @@ orca.Bot = require './bot'
 orca.createBot = (opts) ->
   new orca.Bot opts
 
-orca.server = express.createServer()
+expressApp = express.createServer()
   .use(express.favicon())
   .use(express.static orca.assets)
   .use(orca.router())
+
+orca.server = http.createServer expressApp
 
 derby.use(require 'racer-db-mongo')
 
@@ -26,7 +29,8 @@ orca.store = orca.createStore
 orca.bot = orca.createBot
   store: orca.store
   nick: 'orca'
-  # debug: true
+  channels: ['#derbyjs', '#pwn']
+  debug: true
 
 if require.main is module
   orca.server.listen 3000

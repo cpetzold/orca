@@ -3,22 +3,6 @@ moment = require 'moment'
 
 orca = derby.createApp module
 
-orca.view.make 'Title', '#{{_channel.id}}'
-
-orca.view.make 'Body', """
-  <button id='toggleActions'>Hide actions</button>
-  <ul id='messages'>
-    {#each _channel.messages}<app:message>{/}
-  </ul>
-"""
-
-orca.view.make 'message', """
-  <li class='{{type}}'>
-    <span class='timestamp'>({{prettyDate(timestamp)}})</span>
-    {{#if from}}<span class='from'>{{from}}</span>{{/}}
-    {{message}}
-"""
-
 orca.view.fn 'prettyDate', (d) ->
   moment(d).format 'hh:mm:ss a'
 
@@ -31,8 +15,12 @@ orca.get '/:channel', (page, model, params) ->
 
 orca.ready (model) ->
 
-  toggleActions = document.getElementById 'toggleActions'
+  input = document.getElementById 'input'
   messages = document.getElementById 'messages'
+  toggleActions = document.getElementById 'toggleActions'
+
+  document.body.scrollTop = messages.offsetHeight
+  input.focus()
 
   toggleActions.addEventListener 'click', (e) ->
     text = toggleActions.innerText
@@ -42,3 +30,6 @@ orca.ready (model) ->
     else
       toggleActions.innerText = 'Hide actions'
       messages.className = ''
+
+  model.on 'push', '_channel.messages', (message, len, isLocal) ->
+    document.body.scrollTop = messages.offsetHeight

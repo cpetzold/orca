@@ -1,0 +1,19 @@
+<Title:>
+  #{{_channel.id}}
+
+<Head:>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+
+<Body:>
+  <div id='controls'>
+    <input id='input' type='text' />
+  </div>
+  <ul id='messages'>
+    {#each _channel.messages}<app:message>{/}
+  </ul>
+
+<message:>
+  <li class='{{type}}'>
+    <time datetime='{{timestamp}}' class='timestamp'>({{prettyDate(timestamp)}})</time>
+    {{#if from}}<span class='from'>{{from}}</span>{{/}}
+    {{message}}

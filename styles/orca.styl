@@ -3,20 +3,36 @@ body
   color: #fff
   font: 11px/14px "Andale Mono", "Lucida Console", Consolas, monospace
   margin: 5px
-  padding: 0
+  padding: 0 0 32px
+  overflow-x: hidden
+
+input
+  border: 0
+  &:focus
+    outline: none
+
+#input
+  position: fixed
+  bottom: 0
+  left: 0
+  width: 100%
+  padding: 10px 5px
+  margin: 1px 0 0
+  background: #222
+  color: #eee
+  border-top: 1px solid #3e3e3e
+  box-shadow: 0 -1px 0 #222
+  &:focus
+    box-shadow: 0 -1px 0 #222, inset 0 5px 15px -5px #111
 
 ul
   list-style: none
   margin: 0
   padding: 0
 
+time,
 span
-  margin-right: 0.8em
-
-#toggleActions
-  position: fixed
-  top: 5px
-  right: 5px
+  margin-right: 0.5em
 
 .hide
   .join,
@@ -48,3 +64,7 @@ span
       content: '('
     &:after
       content: ')'
+
+@media screen and (max-width: 480px)
+  time
+    font-size: 0.8em
