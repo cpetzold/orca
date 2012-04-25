@@ -30,35 +30,35 @@ ul
   margin: 0
   padding: 0
 
-time,
-span
+.message-timestamp,
+.message-from 
   margin-right: 0.5em
 
-.hide
-  .join,
-  .part
+.message-hide
+  .message-join,
+  .message-part
     display: none
 
-.timestamp
+.message-timestamp
   color: #555
 
-.join,
-.part
-  .from
+.message-join,
+.message-part
+  .message-from
     color: #999
 
-.join
-  .from
+.message-join
+  .message-from
     &:after
       content: ' joined'
 
-.part
-  .from
+.message-part
+  .message-from
     &:after
       content: ' quit'
 
 .message
-  .from
+  .message-from
     color: #bec4a4
     &:before
       content: '('
@@ -66,5 +66,5 @@ span
       content: ')'
 
 @media screen and (max-width: 480px)
-  time
+  .message-timestamp
     font-size: 0.8em

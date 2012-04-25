@@ -7,13 +7,21 @@
 <Body:>
   <div id='controls'>
     <input id='input' type='text' />
+    <ul id='servers'>
+      {#each _channels}<app:channelTab>{/}
+    </ul>
   </div>
   <ul id='messages'>
     {#each _channel.messages}<app:message>{/}
   </ul>
 
+<channelTab:>
+  <li class='channel'>
+    <span class='channel-name'>{{name}}</span>
+    <span class='channel-unread'>{unread}
+
 <message:>
-  <li class='{{type}}'>
-    <time datetime='{{timestamp}}' class='timestamp'>({{prettyDate(timestamp)}})</time>
-    {{#if from}}<span class='from'>{{from}}</span>{{/}}
+  <li class='message message-{{type}}'>
+    <time datetime='{{timestamp}}' class='message-timestamp'>({{prettyDate(timestamp)}})</time>
+    {{#if from}}<span class='message-from'>{{from}}</span>{{/}}
     {{message}}

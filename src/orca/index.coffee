@@ -17,19 +17,19 @@ orca.ready (model) ->
 
   input = document.getElementById 'input'
   messages = document.getElementById 'messages'
-  toggleActions = document.getElementById 'toggleActions'
+  # toggleActions = document.getElementById 'toggleActions'
 
   document.body.scrollTop = messages.offsetHeight
   input.focus()
 
-  toggleActions.addEventListener 'click', (e) ->
-    text = toggleActions.innerText
-    if text is 'Hide actions'
-      toggleActions.innerText = 'Show actions'
-      messages.className = 'hide'
-    else
-      toggleActions.innerText = 'Hide actions'
-      messages.className = ''
+  # toggleActions.addEventListener 'click', (e) ->
+  #   text = toggleActions.innerText
+  #   if text is 'Hide actions'
+  #     toggleActions.innerText = 'Show actions'
+  #     messages.className = 'hide'
+  #   else
+  #     toggleActions.innerText = 'Hide actions'
+  #     messages.className = ''
 
   model.on 'push', '_channel.messages', (message, len, isLocal) ->
     document.body.scrollTop = messages.offsetHeight
