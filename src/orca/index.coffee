@@ -15,7 +15,14 @@ orca.get '/:channel', (page, model, params) ->
       channel: params.channel
   messageQuery.sort 'timestamp', 'desc'
 
-  model.subscribe "channels.#{params.channel}", messageQuery, (e, channel) ->
+  model.subscribe "channels.#{params.channel}", messageQuery, (e, channel, messages) ->
+    list = []
+    for id, message of messages.get()
+      list.push message
+
+    list.sort (a, b) -> a.timestamp - b.timestamp
+    model.set '_messageIds', list.map ({ id }) -> id
+
     model.ref '_channel', channel
     model.refList '_messages', 'messages', '_messageIds'
     page.render()
@@ -38,6 +45,9 @@ orca.ready (model) ->
   #   else
   #     toggleActions.innerText = 'Hide actions'
   #     messages.className = ''
+
+  model.on 'addDoc', (path, doc) ->
+    console.log path, doc
 
   model.on 'push', '_messages', (message, len, isLocal) ->
     document.body.scrollTop = messages.offsetHeight
