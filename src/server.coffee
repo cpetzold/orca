@@ -33,4 +33,4 @@ orca.bot = orca.createBot
   debug: true
 
 if require.main is module
-  orca.server.listen 3000
+  orca.server.listen process.env.NODE_PORT or 3000
