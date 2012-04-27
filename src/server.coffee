@@ -12,7 +12,6 @@ orca.createBot = (opts) ->
   new orca.Bot opts
 
 expressApp = express.createServer()
-  .use(express.favicon())
   .use(express.static orca.assets)
   .use(orca.router())
 
