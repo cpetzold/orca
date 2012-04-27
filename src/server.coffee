@@ -2,7 +2,7 @@ path = require 'path'
 http = require 'http'
 derby = require 'derby'
 express = require 'express'
-orca = module.exports = require './orca'
+orca = require './orca'
 
 orca.root = path.dirname __dirname
 orca.assets = path.join orca.root, 'public'
@@ -16,7 +16,7 @@ expressApp = express.createServer()
   .use(express.static orca.assets)
   .use(orca.router())
 
-orca.server = http.createServer expressApp
+orca.server = module.exports = http.createServer expressApp
 
 derby.use(require 'racer-db-mongo')
 
