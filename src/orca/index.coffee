@@ -30,11 +30,13 @@ orca.get '/:channel', (page, model, params) ->
 orca.ready (model) ->
   window.model = model
 
-  input = document.getElementById 'input'
-  messages = document.getElementById 'messages'
+  messages = model.at '_messages'
+
+  elInput = document.getElementById 'input'
+  elMessages = document.getElementById 'messages'
   
-  document.body.scrollTop = messages.offsetHeight
-  input.focus()
+  document.body.scrollTop = elMessages.offsetHeight
+  elInput.focus()
 
   # toggleActions = document.getElementById 'toggleActions'
   # toggleActions.addEventListener 'click', (e) ->
@@ -46,8 +48,14 @@ orca.ready (model) ->
   #     toggleActions.innerText = 'Hide actions'
   #     messages.className = ''
 
-  model.on 'addDoc', (path, doc) ->
-    console.log path, doc
+  model.on 'set', 'messages.*', (id, message) ->
+    return if message.new
+    m = messages.get()
+    i = m.length
+    i-- while m[i-1].timestamp > message.timestamp
+    message.new = true
+    messages.insert i, message
+    
 
-  model.on 'push', '_messages', (message, len, isLocal) ->
-    document.body.scrollTop = messages.offsetHeight
+  model.on 'insert', '_messages', (message, len) ->
+    document.body.scrollTop = elMessages.offsetHeight
