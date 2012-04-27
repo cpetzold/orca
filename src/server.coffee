@@ -29,7 +29,8 @@ orca.store = orca.createStore
 orca.bot = orca.createBot
   store: orca.store
   nick: 'orca'
-  channels: ['#derbyjs', '#pwn']
+  server: if process.env.NODE_ENV is 'production' then 'irc.freenode.net' else 'irc.the0th.com'
+  channels: ['#derbyjs']
   debug: true
 
 if require.main is module
