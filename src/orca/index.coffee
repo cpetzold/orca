@@ -25,13 +25,6 @@ orca.get '/:channel', (page, model, params) ->
 
     model.ref '_channel', channel
     model.refList '_messages', 'messages', '_messageIds'
-
-    model.on 'addDoc', (path, doc) ->
-      console.log path, doc
-
-    model.on 'push', '_messages', (message, len, isLocal) ->
-      document.body.scrollTop = messages.offsetHeight
-
     page.render()
 
 orca.ready (model) ->
@@ -53,4 +46,8 @@ orca.ready (model) ->
   #     toggleActions.innerText = 'Hide actions'
   #     messages.className = ''
 
-  
+  model.on 'addDoc', (path, doc) ->
+    console.log path, doc
+
+  model.on 'push', '_messages', (message, len, isLocal) ->
+    document.body.scrollTop = messages.offsetHeight
