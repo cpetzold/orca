@@ -2,18 +2,24 @@
 
 module.exports = class Bot
   constructor: (opts = {}) ->
-    @store = opts.store
+    store = opts.store
 
-    if !@store
+    if !store
       throw new Error 'Must pass in a store'
 
+    opts.network ?= 'the0th'
     opts.server ?= 'irc.the0th.com';
-    opts.channels ?= [ '#derbyjs' ]
+    opts.channels ?= [ '#derbyjs', '#pwn' ]
     opts.port ?= 6667
     opts.nick ?= 'derbybot'
 
-    @path = opts.path ? 'channels.'
-    @path += '.' if not @path.match '.'
+    refPath = opts.refPath ? '_messages'
+    toPath = opts.toPath ? 'messages'
+    keyPath = opts.keyPath ? '_messageIds'
+
+    model = store.createModel()
+    model.refList refPath, toPath, keyPath
+    @messages = model.at refPath
 
     @client = new Client opts.server, opts.nick, opts
     @client.on 'message', @onMessage
@@ -37,6 +43,7 @@ module.exports = class Bot
       from: from
 
   push: (to, message) ->
-    path = @path + to.replace '#', ''
+    message.channel = to.replace '#', ''
     message.timestamp = Date.now()
-    @store.push path + '.messages', message, null
+    console.log message
+    @messages.push message

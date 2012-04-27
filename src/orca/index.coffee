@@ -6,22 +6,30 @@ orca = derby.createApp module
 orca.view.fn 'prettyDate', (d) ->
   moment(d).format 'hh:mm:ss a'
 
+orca.get '/', (page) ->
+  page.redirect '/derbyjs'
+
 orca.get '/:channel', (page, model, params) ->
-  path = 'channels.' + params.channel
-  model.subscribe path, (e, channel) ->
+  messageQuery = model.query 'messages',
+    where:
+      channel: params.channel
+  messageQuery.sort 'timestamp', 'desc'
+
+  model.subscribe "channels.#{params.channel}", messageQuery, (e, channel) ->
     model.ref '_channel', channel
-    model.setNull '_channel.messages', []
+    model.refList '_messages', 'messages', '_messageIds'
     page.render()
 
 orca.ready (model) ->
+  window.model = model
 
   input = document.getElementById 'input'
   messages = document.getElementById 'messages'
-  # toggleActions = document.getElementById 'toggleActions'
-
+  
   document.body.scrollTop = messages.offsetHeight
   input.focus()
 
+  # toggleActions = document.getElementById 'toggleActions'
   # toggleActions.addEventListener 'click', (e) ->
   #   text = toggleActions.innerText
   #   if text is 'Hide actions'
@@ -31,5 +39,5 @@ orca.ready (model) ->
   #     toggleActions.innerText = 'Hide actions'
   #     messages.className = ''
 
-  model.on 'push', '_channel.messages', (message, len, isLocal) ->
+  model.on 'push', '_messages', (message, len, isLocal) ->
     document.body.scrollTop = messages.offsetHeight

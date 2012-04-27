@@ -7,18 +7,19 @@
 <Body:>
   <div id='controls'>
     <input id='input' type='text' />
-    <ul id='servers'>
-      {#each _channels}<app:channelTab>{/}
+    <ul id='channels'>
+      {#each channels}<app:channelTab>{/}
     </ul>
   </div>
   <ul id='messages'>
-    {#each _channel.messages}<app:message>{/}
+    {#each _messages}<app:message>{/}
   </ul>
 
 <channelTab:>
-  <li class='channel'>
-    <span class='channel-name'>{{name}}</span>
-    <span class='channel-unread'>{unread}
+  <li><a href='/{{_id}}' class='channel'>
+    <span class='channel-name'>{{_id}}</span>
+    <span class='channel-unread'>{._unread}</span>
+  </a>
 
 <message:>
   <li class='message message-{{type}}'>
