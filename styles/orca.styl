@@ -1,11 +1,14 @@
 @import 'nib'
 
+*
+  box-sizing: border-box
+
 body
   background: #2c2b2c
   color: #fff
   font: 11px/14px "Andale Mono", "Lucida Console", Consolas, monospace
   margin: 5px
-  padding: 0 0 32px
+  padding: 0 0 26px
   overflow-x: hidden
 
 input
@@ -13,30 +16,34 @@ input
   &:focus
     outline: none
 
-#controls
+#input
   position: fixed
   bottom: 0
-  left: 0
+  right: 0
   width: 100%
-
-#input
-  display: none
-  width: 100%
-  padding: 10px 5px
-  margin: 1px 0 0
-  color: #eee
-  background: #2c2b2c
-  border-top: 1px solid #222
+  padding: 6px 5px
+  margin: 0
+  color: #aaa
+  background: #2a2a2a
+  border-top: 1px solid #1a1a1a
   box-shadow: inset 0 5px 15px -5px #222
+  transition: background ease-out 0.3s, color ease-out 0.3s, box-shadow ease-out 0.3s
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder
+    color: #444
+    transition: color ease-out 0.3s
+  &:hover,
   &:focus
+    color: #eee
+    background: #262626
     box-shadow: inset 0 5px 15px -5px #111
-    
-#channels
-  padding: 0 4px
-  background: #111
-  color: #eee
-  border-top: 5px solid #222
-  box-shadow: 0 -1px 0 #3e3e3e, inset 0 1px 0 #3e3e3e, inset 0 1px 6px #000
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder
+      color: #777
+  &:focus
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder
+      opacity: 0
 
 .channel
   display: inline-block

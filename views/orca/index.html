@@ -6,15 +6,14 @@
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
 <Body:>
-  <div id='controls'>
-    <input id='input' type='text' />
-    <ul id='channels'>
-      {#each channels}<app:channelTab>{/}
+  <div id='container'>
+    <form x-bind='submit: submit'>
+      <input id='input' type='text' placeholder='Enter text here' />
+    </form>
+    <ul id='messages'>
+      {#each _messages}<app:message>{/}
     </ul>
   </div>
-  <ul id='messages'>
-    {#each _messages}<app:message>{/}
-  </ul>
 
 <channelTab:>
   <li><a href='/{{_id}}' class='channel'>

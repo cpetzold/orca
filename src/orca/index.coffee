@@ -25,12 +25,16 @@ orca.get '/:channel', (page, model, params) ->
 
     model.ref '_channel', channel
     model.refList '_messages', 'messages', '_messageIds'
+    model.setNull '_user',
+      nick: 'conner'
     page.render()
 
 orca.ready (model) ->
   window.model = model
 
   messages = model.at '_messages'
+  channel = model.at '_channel'
+  user = model.at '_user'
 
   elInput = document.getElementById 'input'
   elMessages = document.getElementById 'messages'
@@ -48,6 +52,16 @@ orca.ready (model) ->
   #     toggleActions.innerText = 'Hide actions'
   #     messages.className = ''
 
+  exports.submit = (e) ->
+    messages.push
+      timestamp: Date.now()
+      channel: channel.get().id
+      from: user.get().nick
+      type: 'message'
+      message: elInput.value
+      new: true
+    elInput.value = ''
+
   model.on 'set', 'messages.*', (id, message) ->
     return if message.new
     m = messages.get()
@@ -55,7 +69,13 @@ orca.ready (model) ->
     i-- while m[i-1].timestamp > message.timestamp
     message.new = true
     messages.insert i, message
-    
 
-  model.on 'insert', '_messages', (message, len) ->
+  model.on 'insert', '_messages', ->
     document.body.scrollTop = elMessages.offsetHeight
+    
+  model.on 'push', '_messages', ->
+    document.body.scrollTop = elMessages.offsetHeight
+
+
+
+
